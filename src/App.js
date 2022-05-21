@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom'
-import { Home, About, Login } from './pages'
+import { Home, Product, Login } from './pages'
 import './App.css';
+import './product.css';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button, Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
@@ -18,7 +19,7 @@ function App() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/about">About</Nav.Link>
+              <Nav.Link href="/product">Product</Nav.Link>
               <Nav.Link href="/login">Login</Nav.Link>
             </Nav>
           </Navbar.Collapse>
@@ -27,7 +28,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home />}>
         </Route>
-        <Route exact path="/about" element={<About />}>
+        <Route exact path="/product" element={<Product />}>
         </Route>
         <Route exact path="/login" element={<Login />}>
         </Route>
@@ -48,7 +49,7 @@ function App() {
                 <a href="/">Home</a>
               </li>
               <li className="list-unstyled">
-                <a href="/about">About</a>
+                <a href="/product">Product</a>
               </li>
               <li className="list-unstyled">
                 <a href="/login">Login</a>
