@@ -1,36 +1,69 @@
-import { Form, Button } from 'react-bootstrap';
-function Login () {
-    return (
-        <div class="container my-5">
-            <div class="row">
-                <div class="card">
-                    <div class="card-body">
+import { useState, useEffect } from "react";
+import logo from "../assets/logo.svg";
 
-            <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
-                <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-                </Form.Text>
-            </Form.Group>
+async function doLogin({ email, password }) {
+  // Gunakan endpoint-mu sendiri
+  // TODO: Hit endpoint back-end mu yak
+  console.log({ email, password });
+  return "initoken";
+}
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-                Submit
-            </Button>
-            </Form>
-            </div>
-            </div>
-            </div>
-        </div>
-        )
-    }
-    
-    export default Login;
+function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    setIsLoggedIn(!!token);
+  }, [token]);
+
+  function handleSubmit(e) {
+    setIsLoading(true);
+    e.preventDefault();
+    doLogin({ email, password })
+      .then((token) => localStorage.setItem("token", token))
+      .catch((err) => console.log(err.message))
+      .finally(() => setIsLoading(false));
+  }
+
+  function handleLogout(e) {
+    setIsLoading(true);
+    e.preventDefault();
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    setIsLoading(false);
+  }
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+
+        {!isLoggedIn ? (
+          <form onSubmit={handleSubmit}>
+            <input 
+            class ="mx-3"
+              type="email"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+            />
+            <input type="submit" value={isLoading ? "Loading" : "Login"} />
+          </form>
+        ) : (
+          <input type="submit" value="Logout" onClick={handleLogout} />
+        )}
+      </header>
+    </div>
+  );
+}
+
+export default Login;

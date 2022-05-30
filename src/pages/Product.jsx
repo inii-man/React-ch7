@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Spinner } from 'react-bootstrap';
 import axios from 'axios';
+
 function Product () {
     // const [ count, setCount ] = useState(0);
     // const [ minus, setMinus ] = useState(100);

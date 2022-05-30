@@ -16,6 +16,6 @@ h1 {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   }
   .card img {
-    height: auto;
-    width: auto;
+    height: 250px;
+    width: 250px;
   }
